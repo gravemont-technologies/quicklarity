@@ -1,0 +1,455 @@
+{
+  "examples": [
+    {
+      "description": "Early-stage SaaS founder with multiple marketing tasks",
+      "input": {
+        "founder": {
+          "name": "Alex Chen",
+          "role": "Solo Founder",
+          "company": "TaskFlow AI",
+          "stage": "mvp",
+          "skills": "engineering, product design",
+          "summary": "Alex is a technical founder building a B2B SaaS productivity tool. Currently at MVP stage with 5 beta users. Strong engineering background but limited marketing experience."
+        },
+        "tasks": [
+          {
+            "id": "t1",
+            "title": "Launch on Product Hunt",
+            "description": "Create PH launch strategy and assets",
+            "impactScore": "8.2",
+            "urgency": "0.70",
+            "revenueLeverage": "0.85",
+            "effortEstimate": "medium"
+          },
+          {
+            "id": "t2",
+            "title": "Add Stripe billing",
+            "description": "Integrate payment processing",
+            "impactScore": "9.1",
+            "urgency": "0.90",
+            "revenueLeverage": "0.95",
+            "effortEstimate": "medium"
+          },
+          {
+            "id": "t3",
+            "title": "Write blog posts",
+            "description": "SEO content strategy",
+            "impactScore": "5.3",
+            "urgency": "0.30",
+            "revenueLeverage": "0.40",
+            "effortEstimate": "low"
+          },
+          {
+            "id": "t4",
+            "title": "Fix onboarding bugs",
+            "description": "2 users dropped off during signup",
+            "impactScore": "7.8",
+            "urgency": "0.85",
+            "revenueLeverage": "0.75",
+            "effortEstimate": "low"
+          },
+          {
+            "id": "t5",
+            "title": "Build API",
+            "description": "Public API for integrations",
+            "impactScore": "6.1",
+            "urgency": "0.40",
+            "revenueLeverage": "0.60",
+            "effortEstimate": "high"
+          }
+        ],
+        "documents": [],
+        "contextNotes": "Need revenue within 2 months or will run out of runway"
+      },
+      "expectedOutput": {
+        "executiveSummary": "Focus on revenue-critical tasks first. Given 2-month runway constraint, prioritize billing infrastructure and conversion optimization before growth experiments. Sequence: Fix bleeding (onboarding bugs) → Enable revenue (Stripe) → Drive traffic (Product Hunt launch).",
+        "topPriorities": [
+          {
+            "rank": 1,
+            "taskId": "t2",
+            "taskTitle": "Add Stripe billing",
+            "impactScore": 9.1,
+            "rationale": "No billing = no revenue. This is the most critical blocker to monetization. With 2-month runway, every day without payment capability is lost opportunity. Technical founder can implement this within 1 week using Stripe's excellent docs.",
+            "preworkRequired": [
+              "Define pricing tiers (simple: single tier to start)",
+              "Set up Stripe account and testing",
+              "Design minimal billing UI mockups"
+            ],
+            "estimatedDuration": "1 week",
+            "successMetrics": [
+              "First paid customer within 48 hours of launch",
+              "Checkout conversion rate >70%",
+              "Zero failed payments"
+            ]
+          },
+          {
+            "rank": 2,
+            "taskId": "t4",
+            "taskTitle": "Fix onboarding bugs",
+            "impactScore": 7.8,
+            "rationale": "40% drop-off is hemorrhaging potential revenue. Quick wins here compound with every new user. As technical founder, this plays to your strengths. Fix before driving more traffic via Product Hunt.",
+            "preworkRequired": [
+              "Add analytics to identify exact drop-off points",
+              "Interview 2 users who dropped off (if possible)",
+              "Test signup flow on multiple browsers"
+            ],
+            "estimatedDuration": "3-4 days",
+            "successMetrics": [
+              "Drop-off rate <10%",
+              "New user activation rate >80%",
+              "Zero console errors in signup flow"
+            ]
+          },
+          {
+            "rank": 3,
+            "taskId": "t1",
+            "taskTitle": "Launch on Product Hunt",
+            "description": "Create PH launch strategy and assets",
+            "impactScore": 8.2,
+            "rationale": "High-leverage traffic driver, but only after billing and onboarding are solid. One shot to make a splash - need infrastructure ready to convert traffic to revenue. Time launch for Tuesday or Wednesday.",
+            "preworkRequired": [
+              "Create compelling hero image and demo video",
+              "Line up 5-10 supporters for launch day upvotes",
+              "Prepare FAQ responses for comments",
+              "Ensure billing and onboarding are bulletproof"
+            ],
+            "estimatedDuration": "5 days prep + 1 day execution",
+            "successMetrics": [
+              "Top 5 product of the day",
+              "500+ visitors to site",
+              "10+ signups, 2+ paid conversions"
+            ]
+          },
+          {
+            "rank": 4,
+            "taskId": "t3",
+            "taskTitle": "Write blog posts",
+            "impactScore": 5.3,
+            "rationale": "SEO is long-term play (3-6 months to see results). With 2-month runway, this is lower priority than direct revenue drivers. Consider after securing initial revenue stream.",
+            "preworkRequired": [
+              "Identify 3 high-intent keywords using Ahrefs/Ubersuggest",
+              "Outline posts targeting bottom-of-funnel searches",
+              "Consider hiring freelance writer ($50-100/post)"
+            ],
+            "estimatedDuration": "2 weeks (if doing yourself)",
+            "successMetrics": [
+              "3 posts published",
+              "Indexed by Google within 1 week",
+              "5+ organic visits per post within 30 days"
+            ]
+          },
+          {
+            "rank": 5,
+            "taskId": "t5",
+            "taskTitle": "Build API",
+            "impactScore": 6.1,
+            "rationale": "Important for platform positioning but high effort for uncertain near-term return. Defer until you have paying customers requesting integrations. Validate demand first.",
+            "preworkRequired": [
+              "Survey existing users: who needs API access?",
+              "Define 3 most valuable integration use cases",
+              "Scope minimal API surface area"
+            ],
+            "estimatedDuration": "3-4 weeks",
+            "successMetrics": [
+              "2+ customers explicitly requesting API access",
+              "Validated use cases with revenue potential"
+            ]
+          }
+        ],
+        "schedule": [
+          {
+            "week": 1,
+            "focus": "Stop the bleeding - fix conversion blockers",
+            "tasks": ["t4"],
+            "milestones": ["Onboarding drop-off rate <10%"],
+            "risksToWatch": ["Bugs take longer than expected - timebox to 4 days max"]
+          },
+          {
+            "week": 2,
+            "focus": "Enable revenue - ship billing",
+            "tasks": ["t2"],
+            "milestones": ["First paid customer"],
+            "risksToWatch": ["Stripe integration complexity - use Stripe Checkout for speed"]
+          },
+          {
+            "week": 3,
+            "focus": "Prepare for launch",
+            "tasks": ["t1"],
+            "milestones": ["All PH assets ready", "10 supporters committed"],
+            "risksToWatch": ["Launch timing - avoid Fridays and holidays"]
+          },
+          {
+            "week": 4,
+            "focus": "Execute launch + iterate",
+            "tasks": ["t1"],
+            "milestones": ["Product Hunt launch", "First 10 paying customers"],
+            "risksToWatch": ["Low conversion from PH traffic - have retargeting ready"]
+          },
+          {
+            "week": 5,
+            "focus": "Double down on what works",
+            "tasks": ["t3"],
+            "milestones": ["Analyze PH results", "Plan next growth channel"],
+            "risksToWatch": ["Distraction - stay focused on revenue-generating activities"]
+          }
+        ],
+        "risks": [
+          {
+            "type": "execution",
+            "description": "2-month runway creates time pressure that may lead to cutting corners on quality",
+            "likelihood": "medium",
+            "impact": "high",
+            "mitigation": "Timebox all tasks strictly. If Stripe takes >1 week, use simpler solution like Gumroad temporarily."
+          },
+          {
+            "type": "market",
+            "description": "Product Hunt may not convert to revenue if product-market fit is weak",
+            "likelihood": "medium",
+            "impact": "medium",
+            "mitigation": "Do 5 customer interviews this week to validate value prop. Adjust messaging before launch."
+          },
+          {
+            "type": "resource",
+            "description": "Solo founder wearing all hats - risk of burnout or dropping balls",
+            "likelihood": "high",
+            "impact": "high",
+            "mitigation": "Cut scope ruthlessly. Consider hiring freelancer for PH assets ($200-500). Sleep 7+ hours."
+          },
+          {
+            "type": "technical",
+            "description": "Onboarding bugs may be deeper than expected (infrastructure issues)",
+            "likelihood": "low",
+            "impact": "medium",
+            "mitigation": "Timebox debugging to 4 days. If not resolved, consider complete signup flow rewrite with simpler approach."
+          }
+        ],
+        "nextSteps": [
+          "TODAY: Set up analytics on signup flow to identify exact drop-off points",
+          "TODAY: Create Stripe account and read integration docs",
+          "Tomorrow: Fix top onboarding bug (should take <4 hours)",
+          "This week: Interview 2 users who completed onboarding successfully - what almost stopped them?",
+          "This week: Define single pricing tier ($29/mo is good starting point for B2B SaaS)"
+        ]
+      }
+    },
+    {
+      "description": "Agency owner trying to transition to product",
+      "input": {
+        "founder": {
+          "name": "Maria Santos",
+          "role": "Founder & CEO",
+          "company": "DesignCraft Studio",
+          "stage": "early-revenue",
+          "skills": "design, client services, team management",
+          "summary": "Maria runs a profitable design agency ($30k/mo revenue) and wants to build a productized design service. She has a team of 3 designers but limited technical resources. Strong client relationships but new to product thinking."
+        },
+        "tasks": [
+          {
+            "id": "t1",
+            "title": "Hire engineer to build product",
+            "description": "Need technical co-founder or senior engineer",
+            "impactScore": "7.5",
+            "urgency": "0.60",
+            "revenueLeverage": "0.70",
+            "effortEstimate": "high"
+          },
+          {
+            "id": "t2",
+            "title": "Package design service as subscription",
+            "description": "Create fixed-price unlimited design offering",
+            "impactScore": "8.9",
+            "urgency": "0.80",
+            "revenueLeverage": "0.90",
+            "effortEstimate": "low"
+          },
+          {
+            "id": "t3",
+            "title": "Build no-code MVP",
+            "description": "Use Webflow + Airtable for product prototype",
+            "impactScore": "6.2",
+            "urgency": "0.50",
+            "revenueLeverage": "0.65",
+            "effortEstimate": "medium"
+          },
+          {
+            "id": "t4",
+            "title": "Hire sales person",
+            "description": "Scale agency revenue to fund product development",
+            "impactScore": "7.1",
+            "urgency": "0.40",
+            "revenueLeverage": "0.75",
+            "effortEstimate": "medium"
+          }
+        ],
+        "documents": [
+          {
+            "filename": "client-feedback.txt",
+            "summary": "5 clients mentioned wanting faster turnaround times. 3 clients asked for fixed monthly pricing instead of hourly. Clients love quality but frustrated by project scoping calls.",
+            "keyInsights": [
+              "Pain point: Scoping overhead for small tasks",
+              "Demand signal: Fixed pricing strongly preferred",
+              "Quality is differentiatior - preserve this"
+            ]
+          }
+        ],
+        "contextNotes": "Agency is profitable but I'm tired of client services. Want to build something scalable."
+      },
+      "expectedOutput": {
+        "executiveSummary": "Bridge to product through productized service, not technology first. Your clients are already asking for subscription design - this is validated demand. Capture this revenue immediately to fund future product development. Avoid hiring engineer until you've proven product-market fit with service.",
+        "topPriorities": [
+          {
+            "rank": 1,
+            "taskId": "t2",
+            "taskTitle": "Package design service as subscription",
+            "impactScore": 8.9,
+            "rationale": "Your clients are literally asking for this. Productized design subscriptions are proven ($10k-20k/mo per client). This leverages your existing strengths (design, client relationships) and generates cash flow to fund future product work. Can launch in 2 weeks vs 6+ months for software product.",
+            "preworkRequired": [
+              "Analyze last 20 client projects: what's most requested?",
+              "Define service tiers (suggest: $5k/mo unlimited, $10k/mo priority)",
+              "Create simple service page on existing website",
+              "Identify 3 existing clients to migrate first"
+            ],
+            "estimatedDuration": "2 weeks to launch",
+            "successMetrics": [
+              "Convert 2 existing clients to subscription within 30 days",
+              "New subscription revenue: $15k/mo within 60 days",
+              "Client retention rate >90%"
+            ]
+          },
+          {
+            "rank": 2,
+            "taskId": "t3",
+            "taskTitle": "Build no-code MVP",
+            "impactScore": 6.2,
+            "rationale": "Validate product concept before hiring expensive engineers. Use no-code tools to test core workflow with existing subscription clients. If they won't pay for manual service, they won't pay for automated product. This de-risks future tech investment.",
+            "preworkRequired": [
+              "Define core workflow: what would product automate?",
+              "Sketch 5 key screens/features",
+              "Learn Webflow basics (20 hours of tutorials)",
+              "Set up Airtable as backend database"
+            ],
+            "estimatedDuration": "3-4 weeks",
+            "successMetrics": [
+              "3 subscription clients using MVP for real projects",
+              "Identified top 5 features they'd pay extra for",
+              "Validated willingness to pay for software ($99-299/mo)"
+            ]
+          },
+          {
+            "rank": 3,
+            "taskId": "t4",
+            "taskTitle": "Hire sales person",
+            "impactScore": 7.1,
+            "rationale": "Once subscription offering is packaged, sales leverage makes sense. Part-time SDR or commission-only closer can scale revenue while you focus on product transition. But only after offer is proven - need clear pitch and pricing first.",
+            "preworkRequired": [
+              "Document sales process: how do you close clients today?",
+              "Create sales deck for subscription service",
+              "Close 5 subscription clients yourself to refine pitch",
+              "Define ideal customer profile and lead sources"
+            ],
+            "estimatedDuration": "1 month (after subscription is proven)",
+            "successMetrics": [
+              "Sales hire closes 2 new clients in first month",
+              "Client acquisition cost <$2k",
+              "Your time freed up by 20+ hours/week"
+            ]
+          },
+          {
+            "rank": 4,
+            "taskId": "t1",
+            "taskTitle": "Hire engineer to build product",
+            "impactScore": 7.5,
+            "rationale": "DEFER until you've validated product concept with no-code MVP and have consistent $30k+/mo subscription revenue to fund salary. Hiring engineer now is premature - high cost, high risk, wrong sequence. Prove demand first.",
+            "preworkRequired": [
+              "Validate product concept with 10+ paying users on no-code MVP",
+              "Define clear product requirements document",
+              "Have 6 months runway to pay engineer salary",
+              "Decide: hire vs co-founder vs outsource vs no-code long-term?"
+            ],
+            "estimatedDuration": "3-6 months (future phase)",
+            "successMetrics": [
+              "Clear ROI model: engineer cost vs product revenue potential",
+              "Validated product-market fit signals",
+              "Technical requirements documented"
+            ]
+          }
+        ],
+        "schedule": [
+          {
+            "week": 1,
+            "focus": "Package subscription offering",
+            "tasks": ["t2"],
+            "milestones": ["Service tiers defined", "Pricing page live"],
+            "risksToWatch": ["Overthinking offering - ship simple version first"]
+          },
+          {
+            "week": 2,
+            "focus": "Sell to existing clients",
+            "tasks": ["t2"],
+            "milestones": ["3 sales calls scheduled", "First subscription client"],
+            "risksToWatch": ["Client objections - be ready to adjust pricing"]
+          },
+          {
+            "week": 3,
+            "focus": "Learn no-code tools",
+            "tasks": ["t3"],
+            "milestones": ["Webflow basics mastered", "MVP wireframes done"],
+            "risksToWatch": ["Tutorial paralysis - focus on building, not learning"]
+          },
+          {
+            "week": 4,
+            "focus": "Build MVP v1",
+            "tasks": ["t3"],
+            "milestones": ["Core workflow functional in Webflow"],
+            "risksToWatch": ["Scope creep - limit to 3 features max"]
+          },
+          {
+            "week": 6,
+            "focus": "Test MVP with clients",
+            "tasks": ["t3"],
+            "milestones": ["2 clients using MVP for real projects"],
+            "risksToWatch": ["No adoption - identify friction points quickly"]
+          },
+          {
+            "week": 8,
+            "focus": "Scale subscription sales",
+            "tasks": ["t4"],
+            "milestones": ["Sales process documented", "First sales hire interviewed"],
+            "risksToWatch": ["Hiring wrong person - start with trial project"]
+          }
+        ],
+        "risks": [
+          {
+            "type": "execution",
+            "description": "Spreading too thin between agency operations and product development",
+            "likelihood": "high",
+            "impact": "high",
+            "mitigation": "Delegate agency operations to senior designer. Block 15 hours/week for product work. Consider reducing agency client load by 30%."
+          },
+          {
+            "type": "market",
+            "description": "Product concept may not resonate even though service does - different value propositions",
+            "likelihood": "medium",
+            "impact": "medium",
+            "mitigation": "Start with hybrid: subscription service with software tools, not pure product. Transition gradually."
+          },
+          {
+            "type": "resource",
+            "description": "Agency cash flow disruption could kill product runway",
+            "likelihood": "low",
+            "impact": "high",
+            "mitigation": "Maintain 6 months operating expenses in cash. Don't reduce agency revenue until product revenue is proven."
+          }
+        ],
+        "nextSteps": [
+          "TODAY: Email 5 best clients: 'Considering a subscription design service - would you be interested?'",
+          "This week: Analyze last 20 projects to identify most common request patterns",
+          "This week: Create simple pricing page for subscription service (use Carrd or existing site)",
+          "Next week: Schedule 3 sales calls with interested clients",
+          "Next week: Sign up for Webflow and complete first tutorial project"
+        ]
+      }
+    }
+  ]
+}
+

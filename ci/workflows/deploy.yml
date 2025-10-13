@@ -1,0 +1,114 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy-api:
+    name: Deploy API to Vercel
+    runs-on: ubuntu-latest
+    environment: production
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      
+      - name: Install Vercel CLI
+        run: npm install -g vercel
+      
+      - name: Deploy to Vercel
+        working-directory: ./api
+        run: |
+          vercel --token ${{ secrets.VERCEL_TOKEN }} \
+            --prod \
+            --yes \
+            --env SUPABASE_URL=${{ secrets.SUPABASE_URL }} \
+            --env SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }} \
+            --env SUPABASE_SERVICE_KEY=${{ secrets.SUPABASE_SERVICE_KEY }} \
+            --env REDIS_URL=${{ secrets.REDIS_URL }} \
+            --env FRONTEND_URL=${{ secrets.FRONTEND_URL }}
+      
+      - name: Notify deployment
+        run: |
+          echo "✅ API deployed to Vercel"
+
+  deploy-worker:
+    name: Deploy Worker to Render
+    runs-on: ubuntu-latest
+    environment: production
+    
+    steps:
+      - name: Trigger Render deployment
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d '{"serviceId": "${{ secrets.RENDER_SERVICE_ID }}"}' \
+            https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys
+      
+      - name: Wait for deployment
+        run: |
+          echo "⏳ Worker deployment triggered on Render"
+          echo "Check status at: https://dashboard.render.com"
+
+  run-migrations:
+    name: Run Database Migrations
+    runs-on: ubuntu-latest
+    environment: production
+    needs: [deploy-api, deploy-worker]
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Install Supabase CLI
+        run: |
+          curl -sL https://github.com/supabase/cli/releases/latest/download/supabase_linux_amd64.tar.gz | tar xz
+          sudo mv supabase /usr/local/bin/
+      
+      - name: Link to Supabase project
+        run: |
+          supabase link --project-ref ${{ secrets.SUPABASE_PROJECT_REF }} --password ${{ secrets.SUPABASE_DB_PASSWORD }}
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+      
+      - name: Run migrations
+        run: |
+          supabase db push
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+      
+      - name: Notify migration status
+        run: |
+          echo "✅ Database migrations completed"
+
+  health-check:
+    name: Post-Deploy Health Check
+    runs-on: ubuntu-latest
+    needs: [deploy-api, deploy-worker, run-migrations]
+    
+    steps:
+      - name: Check API health
+        run: |
+          response=$(curl -s -o /dev/null -w "%{http_code}" ${{ secrets.API_URL }}/api/health)
+          if [ $response -eq 200 ]; then
+            echo "✅ API health check passed"
+          else
+            echo "❌ API health check failed with status $response"
+            exit 1
+          fi
+      
+      - name: Send deployment notification
+        if: success()
+        run: |
+          echo "🎉 Deployment successful!"
+          echo "API: ${{ secrets.API_URL }}"
+          echo "Worker: Running on Render"
+

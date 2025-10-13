@@ -1,0 +1,156 @@
+name: Test & Lint
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  test-api:
+    name: Test API
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: api/package-lock.json
+      
+      - name: Install dependencies
+        working-directory: ./api
+        run: npm ci
+      
+      - name: Run linter
+        working-directory: ./api
+        run: npm run lint
+      
+      - name: Run type check
+        working-directory: ./api
+        run: npm run type-check
+      
+      - name: Run tests
+        working-directory: ./api
+        run: npm test
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          REDIS_URL: redis://localhost:6379
+      
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./api/coverage/lcov.info
+          flags: api
+
+  test-worker:
+    name: Test Worker
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: worker/package-lock.json
+      
+      - name: Install dependencies
+        working-directory: ./worker
+        run: npm ci
+      
+      - name: Run linter
+        working-directory: ./worker
+        run: npm run lint
+      
+      - name: Run type check
+        working-directory: ./worker
+        run: npm run type-check
+      
+      - name: Run tests
+        working-directory: ./worker
+        run: npm test
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./worker/coverage/lcov.info
+          flags: worker
+
+  lint-prompts:
+    name: Validate Prompt Files
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Validate prompt structure
+        run: |
+          # Check all prompt files exist
+          test -f prompts/profile-summarize.txt
+          test -f prompts/doc-summarize.txt
+          test -f prompts/plan-generation.txt
+          test -f prompts/few-shot-examples.json
+          
+          # Validate JSON
+          cat prompts/few-shot-examples.json | jq empty
+      
+      - name: Check prompt format
+        run: |
+          for file in prompts/*.txt; do
+            if ! grep -q "=== SYSTEM ===" "$file"; then
+              echo "Missing SYSTEM section in $file"
+              exit 1
+            fi
+            if ! grep -q "=== USER ===" "$file"; then
+              echo "Missing USER section in $file"
+              exit 1
+            fi
+          done
+
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Run npm audit (API)
+        working-directory: ./api
+        run: npm audit --audit-level=high
+        continue-on-error: true
+      
+      - name: Run npm audit (Worker)
+        working-directory: ./worker
+        run: npm audit --audit-level=high
+        continue-on-error: true
+      
+      - name: Check for secrets
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          base: ${{ github.event.repository.default_branch }}
+          head: HEAD
+
