@@ -116,10 +116,11 @@
       "free_user_passes": true,
       "paid_user_passes": true,
       "notes": [
-        "With actual OpenAI pricing (gpt-3.5-turbo + gpt-4o-mini), both tiers are well within budget.",
-        "Free user: $0.005 actual vs $0.05 cap (10% utilization)",
-        "Paid user: $0.008 actual vs $1.00 cap (0.8% utilization)",
-        "Conservative baseline pricing used for validation shows free users would need mitigation (1 doc max, no gpt-4), but actual pricing is safe.",
+        "With GPT-4o family (nano/mini/full), both tiers are well within budget.",
+        "Free user: $0.001 actual vs $0.05 cap (2% utilization) - uses gpt-4o-nano + gpt-4o-mini",
+        "Paid user: $0.023 actual vs $1.00 cap (2.3% utilization) - uses gpt-4o-nano + gpt-4o",
+        "Free users get gpt-4o-mini for crucial final plan step (better quality than old gpt-3.5)",
+        "Paid users get full gpt-4o for final plan (highest quality available)",
         "Rule-based scoring saves $0.05-0.10 per user vs LLM-based scoring."
       ]
     }
