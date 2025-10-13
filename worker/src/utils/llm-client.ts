@@ -56,15 +56,18 @@ export async function callLLM(call: LLMCall): Promise<LLMResponse> {
  * Calculate cost based on model and token usage
  */
 function calculateCost(model: string, promptTokens: number, completionTokens: number): number {
-  let promptCostPer1k = 0.00015; // Default: gpt-4o-nano/mini
-  let completionCostPer1k = 0.0006;
+  let promptCostPer1k = 0.0001; // gpt-5-nano default
+  let completionCostPer1k = 0.0002;
   
-  if (model.includes('gpt-4o-mini') || model.includes('gpt-4o-nano')) {
-    promptCostPer1k = 0.00015;
+  if (model.includes('gpt-5-nano')) {
+    promptCostPer1k = 0.0001;
+    completionCostPer1k = 0.0002;
+  } else if (model.includes('gpt-5-mini')) {
+    promptCostPer1k = 0.0003;
     completionCostPer1k = 0.0006;
-  } else if (model.includes('gpt-4o')) {
-    promptCostPer1k = 0.005;
-    completionCostPer1k = 0.015;
+  } else if (model.includes('gpt-5')) {
+    promptCostPer1k = 0.001;
+    completionCostPer1k = 0.003;
   }
   
   const promptCost = (promptTokens / 1000) * promptCostPer1k;

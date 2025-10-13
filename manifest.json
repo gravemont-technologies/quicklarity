@@ -5,20 +5,20 @@
   
   "cost_analysis": {
     "pricing_assumptions": {
-      "gpt_4o_nano": {
-        "prompt_per_1k": 0.00015,
-        "completion_per_1k": 0.0006,
-        "note": "Used for profile normalization, doc summarization (cheapest)"
+      "gpt_5_nano": {
+        "prompt_per_1k": 0.0001,
+        "completion_per_1k": 0.0002,
+        "note": "Used for profile normalization, doc summarization (ultra-cheap)"
       },
-      "gpt_4o_mini": {
-        "prompt_per_1k": 0.00015,
+      "gpt_5_mini": {
+        "prompt_per_1k": 0.0003,
         "completion_per_1k": 0.0006,
-        "note": "Used for free users' final plan (crucial step)"
+        "note": "Used for final plan (free users, ONE crucial call)"
       },
-      "gpt_4o": {
-        "prompt_per_1k": 0.005,
-        "completion_per_1k": 0.015,
-        "note": "Used for paid users' final plan (highest quality)"
+      "gpt_5": {
+        "prompt_per_1k": 0.001,
+        "completion_per_1k": 0.003,
+        "note": "Used for final plan (paid users only)"
       },
       "baseline_assumption": {
         "prompt_per_1k": 0.03,
@@ -29,20 +29,20 @@
     
     "per_call_estimates": {
       "profile_normalization": {
-        "model": "gpt-4o-nano",
+        "model": "gpt-5-nano",
         "prompt_tokens": 200,
         "completion_tokens": 200,
         "total_tokens": 400,
-        "cost_usd_actual": 0.00012,
+        "cost_usd_actual": 0.00006,
         "cost_usd_baseline": 0.018,
         "description": "Normalize founder profile into structured summary"
       },
       "doc_summarization_per_chunk": {
-        "model": "gpt-4o-nano",
+        "model": "gpt-5-nano",
         "prompt_tokens": 900,
         "completion_tokens": 300,
         "total_tokens": 1200,
-        "cost_usd_actual": 0.00033,
+        "cost_usd_actual": 0.00015,
         "cost_usd_baseline": 0.045,
         "description": "Summarize one document chunk (800 tokens + prompt overhead)"
       },
@@ -53,29 +53,29 @@
         "description": "Deterministic code-only scoring (zero LLM cost)"
       },
       "final_plan_free_user": {
-        "model": "gpt-4o-mini",
+        "model": "gpt-5-mini",
         "prompt_tokens": 400,
         "completion_tokens": 600,
         "total_tokens": 1000,
-        "cost_usd_actual": 0.00042,
+        "cost_usd_actual": 0.00054,
         "cost_usd_baseline": 0.048,
-        "description": "Generate strategic plan JSON (free tier, uses better model for crucial step)"
+        "description": "Generate strategic plan JSON (free tier, ONE crucial gpt-5-mini call)"
       },
       "final_plan_paid_user": {
-        "model": "gpt-4o",
+        "model": "gpt-5",
         "prompt_tokens": 800,
         "completion_tokens": 1200,
         "total_tokens": 2000,
-        "cost_usd_actual": 0.022,
+        "cost_usd_actual": 0.0044,
         "cost_usd_baseline": 0.096,
-        "description": "Generate strategic plan JSON (paid tier, highest quality)"
+        "description": "Generate strategic plan JSON (paid tier, full gpt-5 quality)"
       },
       "rectifier_if_needed": {
-        "model": "gpt-4o-nano",
+        "model": "gpt-5-nano",
         "prompt_tokens": 200,
         "completion_tokens": 200,
         "total_tokens": 400,
-        "cost_usd_actual": 0.0007,
+        "cost_usd_actual": 0.00006,
         "cost_usd_baseline": 0.018,
         "description": "Single attempt to fix malformed JSON (rarely needed)"
       }
@@ -83,32 +83,32 @@
     
     "worst_case_per_user": {
       "free_user": {
-        "profile_normalization": 0.00012,
-        "doc_summarization": 0.00033,
+        "profile_normalization": 0.00006,
+        "doc_summarization": 0.00015,
         "rule_based_scoring": 0,
-        "final_plan": 0.00042,
-        "rectifier": 0.00012,
-        "total_actual": 0.00099,
+        "final_plan": 0.00054,
+        "rectifier": 0.00006,
+        "total_actual": 0.00081,
         "total_baseline": 0.0829,
         "budget_cap": 0.05,
         "within_budget_actual": true,
         "within_budget_baseline": false,
-        "mitigation": "Using gpt-4o-nano for cheap ops and gpt-4o-mini for crucial final plan. Cost is $0.001 < $0.05 cap (2% utilization).",
-        "breakdown": "Profile (400 tok, nano) + 1 Doc (1200 tok, nano) + Final Plan (1000 tok, mini) + Rectifier (400 tok, nano) = 3000 tokens max"
+        "mitigation": "Using GPT-5 pricing (gpt-5-nano + ONE gpt-5-mini call), cost is $0.0008 < $0.05 cap. Ultra-efficient: limit free users to 1 doc chunk max, use gpt-5-mini ONLY for final plan.",
+        "breakdown": "Profile (400 tok) + 1 Doc (1200 tok) + Final Plan (1000 tok) + Rectifier (400 tok) = 3000 tokens max"
       },
       "paid_user": {
-        "profile_normalization": 0.00012,
-        "doc_summarization_3_chunks": 0.00099,
+        "profile_normalization": 0.00006,
+        "doc_summarization_3_chunks": 0.00045,
         "rule_based_scoring": 0,
-        "final_plan": 0.022,
-        "rectifier": 0.00012,
-        "total_actual": 0.02323,
+        "final_plan": 0.0044,
+        "rectifier": 0.00006,
+        "total_actual": 0.00497,
         "total_baseline": 0.2037,
         "budget_cap": 1.0,
         "within_budget_actual": true,
         "within_budget_baseline": true,
-        "mitigation": "Using gpt-4o for paid users' final plan (highest quality). Total cost $0.023 is 2.3% of $1.00 cap.",
-        "breakdown": "Profile (400 tok, nano) + 3 Docs (3600 tok, nano) + Final Plan (2000 tok, gpt-4o) + Rectifier (400 tok, nano) = 6400 tokens max"
+        "mitigation": "None required. GPT-5 for paid users provides best quality at $0.005 per job, well under $1.00 cap.",
+        "breakdown": "Profile (400 tok) + 3 Docs (3600 tok) + Final Plan (2000 tok) + Rectifier (400 tok) = 6400 tokens max"
       }
     },
     
@@ -116,11 +116,10 @@
       "free_user_passes": true,
       "paid_user_passes": true,
       "notes": [
-        "With GPT-4o family (nano/mini/full), both tiers are well within budget.",
-        "Free user: $0.001 actual vs $0.05 cap (2% utilization) - uses gpt-4o-nano + gpt-4o-mini",
-        "Paid user: $0.023 actual vs $1.00 cap (2.3% utilization) - uses gpt-4o-nano + gpt-4o",
-        "Free users get gpt-4o-mini for crucial final plan step (better quality than old gpt-3.5)",
-        "Paid users get full gpt-4o for final plan (highest quality available)",
+        "With GPT-5 pricing (gpt-5-nano + gpt-5-mini/gpt-5), both tiers are WELL within budget.",
+        "Free user: $0.0008 actual vs $0.05 cap (1.6% utilization) - ONE gpt-5-mini call for final plan",
+        "Paid user: $0.005 actual vs $1.00 cap (0.5% utilization) - Full gpt-5 for highest quality",
+        "GPT-5 nano is ultra-cheap for preprocessing, GPT-5 provides best-in-class quality for paid users.",
         "Rule-based scoring saves $0.05-0.10 per user vs LLM-based scoring."
       ]
     }
@@ -210,8 +209,8 @@
     ]
   },
   
-  "perFounderWorstCaseLLMCostUSD": 0.02323,
-  "perFreeUserWorstCaseLLMCostUSD": 0.00099,
+  "perFounderWorstCaseLLMCostUSD": 0.00497,
+  "perFreeUserWorstCaseLLMCostUSD": 0.00081,
   
   "status": "BUDGET_VALIDATED_PASS",
   "generated_at": "2024-10-13T00:00:00Z"

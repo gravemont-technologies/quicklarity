@@ -237,14 +237,14 @@ export interface LLMResponse {
 export type JobStatus = 'pending' | 'processing' | 'completed' | 'failed';
 export type UserTier = 'free' | 'paid';
 
-// Cost constants (USD per 1K tokens)
+// Cost constants (USD per 1K tokens) - GPT-5 Models
 export const PRICING = {
-  GPT_4O_NANO_PROMPT: 0.00015,
-  GPT_4O_NANO_COMPLETION: 0.0006,
-  GPT_4O_MINI_PROMPT: 0.00015,
-  GPT_4O_MINI_COMPLETION: 0.0006,
-  GPT_4O_PROMPT: 0.005,
-  GPT_4O_COMPLETION: 0.015,
+  GPT_5_NANO_PROMPT: 0.0001,
+  GPT_5_NANO_COMPLETION: 0.0002,
+  GPT_5_MINI_PROMPT: 0.0003,
+  GPT_5_MINI_COMPLETION: 0.0006,
+  GPT_5_PROMPT: 0.001,
+  GPT_5_COMPLETION: 0.003,
 } as const;
 
 export const BUDGETS = {

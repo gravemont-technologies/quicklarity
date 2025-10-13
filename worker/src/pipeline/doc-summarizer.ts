@@ -48,7 +48,7 @@ export async function summarizeDocuments(
     });
     
     const llmCall: LLMCall = {
-      model: process.env.SUMMARIZATION_MODEL || 'gpt-3.5-turbo',
+      model: process.env.SUMMARIZATION_MODEL || 'gpt-5-nano',
       temperature: 0.1,
       maxTokens: 300, // Concise summary
       systemPrompt,

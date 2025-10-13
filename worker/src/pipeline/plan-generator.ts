@@ -60,8 +60,13 @@ export async function generateStrategicPlan(
   // Token limits based on tier
   const maxTokens = tier === 'paid' ? 2000 : 1200;
   
+  // Model selection: gpt-5 for paid, gpt-5-mini for free (ONE crucial call)
+  const model = tier === 'paid' 
+    ? (process.env.PAID_MODEL || 'gpt-5')
+    : (process.env.FREE_FINAL_MODEL || 'gpt-5-mini');
+  
   const llmCall: LLMCall = {
-    model: process.env.PLAN_MODEL || 'gpt-4o-mini',
+    model,
     temperature: parseFloat(process.env.PLAN_TEMPERATURE || '0.2'),
     maxTokens,
     systemPrompt,
