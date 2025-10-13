@@ -1,4 +1,4 @@
-# Deployment Guide for Strategic Clarity Engine
+# Quicklarity - Deployment Guide
 
 This guide walks you through deploying SCE from scratch to production.
 

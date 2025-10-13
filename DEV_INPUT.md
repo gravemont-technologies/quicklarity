@@ -1,4 +1,4 @@
-# Developer Input - Required Configuration
+# Quicklarity - Developer Input
 
 **INSTRUCTIONS**: Fill in all values below before deploying. Cursor will pause if required secrets are missing.
 

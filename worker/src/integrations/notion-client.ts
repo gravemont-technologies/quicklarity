@@ -29,7 +29,7 @@ export async function publishToNotion(
           title: [
             {
               text: {
-                content: `Strategic Plan - ${founderName}`,
+                content: `Quicklarity Plan - ${founderName}`,
               },
             },
           ],

@@ -1,4 +1,4 @@
-# Strategic Clarity Engine - System Architecture
+# Quicklarity - System Architecture
 
 ## High-Level Architecture
 

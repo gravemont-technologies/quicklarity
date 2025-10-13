@@ -1,4 +1,4 @@
-# LLM Cost Analysis & Budget Enforcement
+# Quicklarity - LLM Cost Analysis & Budget Enforcement
 
 ## Pricing Assumptions (OpenAI GPT Models)
 

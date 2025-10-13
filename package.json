@@ -1,7 +1,7 @@
 {
-  "name": "strategic-clarity-engine",
+  "name": "quicklarity",
   "version": "1.0.0",
-  "description": "Strategic Clarity Engine MVP - Backend API",
+  "description": "Quicklarity - AI-Powered Strategic Planning for Founders",
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",

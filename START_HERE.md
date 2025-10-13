@@ -1,6 +1,6 @@
-# 👋 Strategic Clarity Engine - START HERE
+# 👋 Quicklarity - START HERE
 
-Welcome! This is your complete, production-ready MVP codebase for the Strategic Clarity Engine.
+Welcome! This is your complete, production-ready MVP codebase for Quicklarity.
 
 ---
 

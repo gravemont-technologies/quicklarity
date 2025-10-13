@@ -1,4 +1,4 @@
-# Strategic Clarity Engine - Smoke Test Checklist
+# Quicklarity - Smoke Test Checklist
 
 Run these tests to verify your MVP is working correctly.
 

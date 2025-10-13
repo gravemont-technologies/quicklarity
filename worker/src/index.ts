@@ -9,7 +9,7 @@ const REDIS_URL = process.env.REDIS_URL || 'redis://localhost:6379';
 // Connect to the same queue as API
 const jobQueue = new Queue('sce-jobs', REDIS_URL);
 
-console.log('🔧 Strategic Clarity Engine Worker started');
+console.log('🔧 Quicklarity Worker started');
 console.log(`Connected to Redis: ${REDIS_URL}`);
 
 /**

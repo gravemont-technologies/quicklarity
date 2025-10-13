@@ -1,4 +1,4 @@
-// Strategic Clarity Engine - Main API Server
+// Quicklarity - Main API Server
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -63,7 +63,7 @@ app.use((err, req, res, next) => {
 // ===== Start Server =====
 if (process.env.NODE_ENV !== 'test') {
   app.listen(PORT, () => {
-    console.log(`🚀 Strategic Clarity Engine API running on port ${PORT}`);
+    console.log(`🚀 Quicklarity API running on port ${PORT}`);
     console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
   });
 }

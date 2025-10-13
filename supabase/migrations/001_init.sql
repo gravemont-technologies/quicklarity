@@ -1,4 +1,4 @@
--- Strategic Clarity Engine - Initial Schema
+-- Quicklarity - Initial Database Schema
 -- Run with: supabase db push
 
 -- Enable UUID extension

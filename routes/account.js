@@ -5,7 +5,7 @@ const { requireAuth } = require('../middleware/auth');
 const { supabase } = require('../lib/supabaseClient');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-// Create Stripe checkout session
+// Create Stripe checkout session for Quicklarity
 router.post('/checkout', requireAuth, async (req, res, next) => {
   try {
     const clerkId = req.auth.userId;

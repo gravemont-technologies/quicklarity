@@ -1,7 +1,7 @@
 {
-  "name": "sce-worker",
+  "name": "quicklarity-worker",
   "version": "1.0.0",
-  "description": "Strategic Clarity Engine - Job Worker",
+  "description": "Quicklarity - Job Worker",
   "main": "dist/index.js",
   "scripts": {
     "dev": "tsx watch src/index.ts",

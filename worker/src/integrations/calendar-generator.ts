@@ -26,7 +26,7 @@ export async function generateCalendarEvents(
   kickoffEnd.setHours(10, 0, 0, 0); // 1 hour duration
   
   const kickoffEvent: CalendarEvent = {
-    title: '🚀 Strategic Plan Kickoff',
+    title: '🚀 Quicklarity Strategic Plan Kickoff',
     description: `Review your strategic plan and align on priorities:\n\n${plan.executiveSummary}\n\nTop Priority: ${plan.topPriorities[0]?.taskTitle}`,
     startDate: kickoffDate.toISOString(),
     endDate: kickoffEnd.toISOString(),
@@ -41,7 +41,7 @@ export async function generateCalendarEvents(
   midpointEnd.setHours(15, 0, 0, 0);
   
   const midpointEvent: CalendarEvent = {
-    title: '🔄 Strategic Plan Mid-Point Review',
+    title: '🔄 Quicklarity Mid-Point Review',
     description: `Check progress on:\n${plan.topPriorities.slice(0, 3).map(p => `- ${p.taskTitle}`).join('\n')}\n\nAdjust course if needed.`,
     startDate: midpointDate.toISOString(),
     endDate: midpointEnd.toISOString(),
@@ -56,7 +56,7 @@ export async function generateCalendarEvents(
   finalEnd.setHours(11, 30, 0, 0);
   
   const finalEvent: CalendarEvent = {
-    title: '✅ Strategic Plan Final Review',
+    title: '✅ Quicklarity Final Review',
     description: `Celebrate wins and plan next phase!\n\nReview:\n${plan.nextSteps.slice(0, 3).join('\n')}`,
     startDate: finalDate.toISOString(),
     endDate: finalEnd.toISOString(),
@@ -123,7 +123,7 @@ async function createGoogleCalendarEvents(
  */
 export function generateICSFile(event: CalendarEvent): string {
   const cal = ical({
-    name: 'Strategic Clarity Engine',
+    name: 'Quicklarity',
     timezone: 'UTC',
   });
   

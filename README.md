@@ -1,4 +1,4 @@
-# Strategic Clarity Engine - Complete MVP
+# Quicklarity - AI-Powered Strategic Planning
 
 Production-ready SaaS MVP with Clerk authentication, Supabase database, Stripe billing, PostHog analytics, Notion publishing, and Google Calendar integration.
 

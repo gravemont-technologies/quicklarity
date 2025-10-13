@@ -1,4 +1,4 @@
-# Strategic Clarity Engine - Complete File Tree
+# Quicklarity - Complete File Tree
 
 ```
 quicklarity/

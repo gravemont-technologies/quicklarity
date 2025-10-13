@@ -1,7 +1,7 @@
 {
-  "name": "Strategic Clarity Engine",
+  "name": "Quicklarity",
   "version": "1.0.0",
-  "description": "Production-ready MVP with Clerk/Supabase/Stripe/PostHog/Notion integrations",
+  "description": "AI-Powered Strategic Planning - Production-ready MVP with Clerk/Supabase/Stripe/PostHog/Notion integrations",
   
   "cost_analysis": {
     "pricing_assumptions": {

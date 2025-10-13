@@ -1,6 +1,6 @@
-# API Contract: Frontend ↔ Backend Integration
+# Quicklarity API Contract: Frontend ↔ Backend Integration
 
-This document defines the exact API contract between the lovable.dev frontend and the Strategic Clarity Engine backend.
+This document defines the exact API contract between the lovable.dev frontend and the Quicklarity backend.
 
 ## Base URL
 
