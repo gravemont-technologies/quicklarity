@@ -32,9 +32,9 @@ Get from: https://platform.openai.com/api-keys
 
 **Model Configuration**:
 ```bash
-FREE_MODEL=gpt-3.5-turbo        # For free users (default)
-PAID_MODEL=gpt-4o-mini          # For paid users (recommended: gpt-4o-mini or gpt-4o)
-SUMMARIZATION_MODEL=gpt-3.5-turbo  # For doc summarization
+FREE_MODEL=gpt-4o-mini          # For free users (crucial final plan step)
+PAID_MODEL=gpt-4o               # For paid users (highest quality)
+SUMMARIZATION_MODEL=gpt-4o-nano # For doc summarization (cheapest)
 ```
 
 ### Stripe (Billing)
@@ -112,10 +112,10 @@ PORT=8000              # Backend API port
 ## Model Pricing (Reference - DO NOT EDIT)
 
 ```bash
-# OpenAI Pricing (as of Oct 2024)
-# gpt-3.5-turbo: $0.0015/1K prompt, $0.002/1K completion
-# gpt-4o-mini: $0.00015/1K prompt, $0.0006/1K completion
-# gpt-4o: $0.005/1K prompt, $0.015/1K completion
+# OpenAI GPT-4o Family Pricing (as of Oct 2024)
+# gpt-4o-nano: $0.00015/1K prompt, $0.0006/1K completion (cheapest)
+# gpt-4o-mini: $0.00015/1K prompt, $0.0006/1K completion (balanced)
+# gpt-4o: $0.005/1K prompt, $0.015/1K completion (highest quality)
 ```
 
 ---

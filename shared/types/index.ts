@@ -239,10 +239,12 @@ export type UserTier = 'free' | 'paid';
 
 // Cost constants (USD per 1K tokens)
 export const PRICING = {
-  GPT_3_5_TURBO_PROMPT: 0.0015,
-  GPT_3_5_TURBO_COMPLETION: 0.002,
+  GPT_4O_NANO_PROMPT: 0.00015,
+  GPT_4O_NANO_COMPLETION: 0.0006,
   GPT_4O_MINI_PROMPT: 0.00015,
   GPT_4O_MINI_COMPLETION: 0.0006,
+  GPT_4O_PROMPT: 0.005,
+  GPT_4O_COMPLETION: 0.015,
 } as const;
 
 export const BUDGETS = {
