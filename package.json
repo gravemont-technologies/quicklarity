@@ -4,12 +4,14 @@
   "description": "Quicklarity - AI-Powered Strategic Planning for Founders",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js",
+    "preflight": "node preflight-check.js",
+    "dev": "node preflight-check.js && nodemon server.js",
     "start": "node server.js",
-    "test": "jest --coverage",
+    "test": "jest --coverage --detectOpenHandles",
     "test:watch": "jest --watch",
     "worker": "node worker/index.js",
-    "worker:dev": "nodemon worker/index.js"
+    "worker:dev": "node preflight-check.js && nodemon worker/index.js",
+    "setup": "npm install && cd frontend && npm install && cd .. && node preflight-check.js"
   },
   "keywords": ["strategic-planning", "ai", "saas"],
   "author": "",
